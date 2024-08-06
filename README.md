@@ -20,7 +20,7 @@ This is a simple appointment scheduler application built with React and Firebase
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/Durlov1603025/Appointment-Scheduler.git
+   git clone [https://github.com/Durlov1603025/Appointment-Scheduler.git](https://github.com/Durlov1603025/Appointment-Scheduler.git)
 
 
 2. Navigate to the project directory
