@@ -1,0 +1,20 @@
+.user-list {
+    margin: 20px;
+  }
+  
+  .user-list input {
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  .user-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .user-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
