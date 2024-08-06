@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import './Register.css';
 
 const Register = () => {
@@ -12,10 +13,16 @@ const Register = () => {
     setError(null);
 
     const auth = getAuth();
+    const firestore = getFirestore();
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('User registered:', userCredential.user);
+      const user = userCredential.user;
+      await addDoc(collection(firestore, 'users'), {
+        uid: user.uid,
+        email: user.email
+      });
+      console.log('User registered:', user);
       alert('User registered successfully');
       setEmail('');
       setPassword('');
