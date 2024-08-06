@@ -4,11 +4,14 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { firestore } from '../firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+import './CalendarView.css';
 
 const localizer = momentLocalizer(moment);
 
 const CalendarView = () => {
   const [events, setEvents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -28,14 +31,41 @@ const CalendarView = () => {
     fetchAppointments();
   }, []);
 
+  const filteredEvents = events.filter(event => {
+    const matchesSearchTerm = event.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const isUpcoming = new Date(event.start) >= new Date();
+    const isPast = new Date(event.start) < new Date();
+
+    if (filter === 'upcoming') {
+      return matchesSearchTerm && isUpcoming;
+    } else if (filter === 'past') {
+      return matchesSearchTerm && isPast;
+    } else {
+      return matchesSearchTerm;
+    }
+  });
+
   return (
     <div style={{ height: '100vh' }}>
+      <div className="controls">
+        <input
+          type="text"
+          placeholder="Search by title"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <option value="all">All</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="past">Past</option>
+        </select>
+      </div>
       <Calendar
         localizer={localizer}
-        events={events}
+        events={filteredEvents}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 520 }}
+        style={{ height: 500 }}
       />
     </div>
   );
