@@ -18,11 +18,11 @@ This project is a responsive appointment scheduler application built with React 
 - Firestore (Firebase Database)
 - React Router
 
-### Prerequisites
+## Prerequisites
 - Node.js and npm installed
 - Firebase project setup
 
-### Installation
+## Installation
 
 1. Clone the repository:
    ```sh
